@@ -1,0 +1,34 @@
+{
+  "versions": {
+    "v1": {
+      "label": "due-grafiche-due-audio",
+      "version": "0.0.1",
+      "revision": "7e742bf",
+      "built_at": "2026-10-05T16:32:10Z",
+      "summary": "Scena 1 con grafica e audio originali del 1986 oppure moderni (tasti G e M)",
+      "pck_bytes": 21133168,
+      "pck_sha256": "b589ee2d59295a53616b52b67456f5d500c70f351e715327fb13b6ebaef84bc4"
+    },
+    "v2": {
+      "label": "comandi-touch",
+      "version": "0.0.1",
+      "revision": "746ba36",
+      "built_at": "2026-10-05T19:06:00Z",
+      "summary": "Come v1, pi\u00f9 leva e pulsanti a schermo per telefono e tablet",
+      "pck_bytes": 21136000,
+      "pck_sha256": "0ffe9bb9554fecb54ee0a72418705241d0c99c27afd883e4dd8d0971cbad0250"
+    },
+    "v3": {
+      "label": "fiamme-viandante-bonus",
+      "version": "0.0.1",
+      "revision": "4b8ccf0",
+      "built_at": "2026-10-05T21:21:49Z",
+      "summary": "Scena 1 come l'arcade per tre vite: fiamme, viandante, punto segreto con bonus",
+      "pck_bytes": 23186320,
+      "pck_sha256": "8da2ec53ff5aed559ff05bc6d1b0667474265fe3962d99ffb2eeb1995b66c4b0"
+    }
+  },
+  "last_slot": 3,
+  "generated_at": "2026-10-05T21:21:49Z",
+  "latest": "v3"
+}

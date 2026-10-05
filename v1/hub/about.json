@@ -1,0 +1,11 @@
+{
+  "name": "kiki",
+  "version": "0.0.1",
+  "revision": "7e742bf",
+  "branch": "main",
+  "built_at": "2026-10-05T16:32:10Z",
+  "source": "https://github.com/mmondora/Kiki_KaiKai",
+  "developer": "MikeSoft (mmondora@mondora.com)",
+  "license": "proprietary",
+  "stack": "godot 4.3 + gdscript"
+}

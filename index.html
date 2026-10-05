@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KiKi KaiKai — A Tribute</title>
+<meta name="description" content="Tributo amatoriale e non ufficiale al classico arcade TAITO del 1986.">
+<style>
+  :root { --bg:#14122b; --panel:#1d1940; --line:#3a3270; --text:#ece9ff; --dim:#b3acdf; --gold:#f2c14e; --red:#c0272d; --h:clamp(380px,70vh,640px); --mapw:896px; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  a { color:var(--gold); }
+  img, canvas.px { image-rendering:pixelated; image-rendering:crisp-edges; }
+  html[data-lang="it"] [lang="en"], html[data-lang="en"] [lang="it"] { display:none !important; }
+  .langsw { position:absolute; z-index:3; top:12px; right:12px; display:flex; border:2px solid #000; outline:2px solid var(--line); }
+  .langsw button { background:#000c; color:var(--dim); border:0; padding:6px 10px; font:700 13px system-ui,sans-serif; cursor:pointer; }
+  .langsw button.on { background:var(--gold); color:#1b1400; }
+  canvas.px { display:block; max-width:100%; height:auto; }
+  /* the scene's map (224x1536 px) scrolls upward behind the hero, as the game does */
+  .hero { position:relative; height:var(--h); overflow:hidden; border-bottom:4px solid #000; image-rendering:pixelated;
+          background:#14122b url(home/hero.png) repeat-x center bottom / var(--mapw) auto; animation:pan 90s linear infinite alternate; }
+  @keyframes pan { from { background-position-y:100%; } to { background-position-y:0%; } }
+  @media (prefers-reduced-motion:reduce) { .hero { animation:none; } }
+  .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,18,43,.88) 0%, rgba(20,18,43,.35) 50%, rgba(20,18,43,.05) 78%); pointer-events:none; }
+  .top { position:absolute; z-index:2; top:0; left:0; right:0; padding:clamp(18px,5vh,44px) 16px 0; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .logo { width:min(672px,92vw); height:auto; filter:drop-shadow(0 6px 10px rgba(0,0,0,.7)); }
+  .play { display:inline-flex; flex-direction:column; align-items:center; gap:8px; padding:14px 22px 12px; background:#000c; border:3px solid var(--gold);
+          text-decoration:none; box-shadow:0 0 0 3px #000, 0 10px 30px rgba(0,0,0,.5); }
+  a.play:hover { background:#2a0a0ccc; border-color:#fff2b0; }
+  .blink { animation:blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  .spr { position:absolute; z-index:1; height:auto; filter:drop-shadow(0 4px 4px rgba(0,0,0,.5)); }
+  .hero .sayo { left:calc(50% - 32px); bottom:22px; }
+  .hero .ghost { left:calc(50% + 150px); bottom:120px; }
+  .hero .ghost2 { left:calc(50% - 230px); bottom:70px; transform:scaleX(-1); }
+  main { max-width:1000px; margin:0 auto; padding:30px 16px 40px; }
+  .support { text-align:center; color:var(--dim); margin:4px 0 0; font-size:15px; letter-spacing:.4px; }
+  section { margin-top:46px; }
+  section > canvas.px { margin:0 0 16px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(380px,1fr)); gap:12px; }
+  .card { display:flex; gap:14px; align-items:flex-start; background:var(--panel); border:3px solid #000; outline:2px solid var(--line); padding:14px 16px; }
+  .card .thumb { position:static; width:48px; height:auto; flex:none; filter:none; margin-top:2px; }
+  .card h3 { margin:0 0 4px; font-size:17px; color:var(--gold); } .card p { margin:0; color:var(--dim); font-size:15px; }
+  details { background:var(--panel); border:3px solid #000; outline:2px solid var(--line); padding:4px 16px; }
+  summary { cursor:pointer; padding:12px 0; font-weight:600; }
+  .vers { display:flex; flex-direction:column; padding:0 0 12px; }
+  .ver { display:grid; grid-template-columns:56px 1fr auto; gap:12px; padding:8px 4px; border-top:1px solid var(--line); color:var(--text); text-decoration:none; font-size:15px; align-items:baseline; }
+  .ver:hover span { color:var(--gold); } .ver em { color:var(--dim); font-style:normal; font-size:13px; white-space:nowrap; }
+  .ver.latest b { color:var(--gold); }
+  .links { display:flex; flex-wrap:wrap; gap:12px; }
+  .links a { display:inline-flex; padding:12px 16px; background:var(--panel); border:3px solid #000; outline:2px solid var(--line); color:var(--text); text-decoration:none; }
+  .links a:hover { outline-color:var(--gold); }
+  footer { margin-top:52px; padding-top:22px; border-top:2px solid var(--line); color:var(--dim); font-size:14px; }
+  footer p { margin:0 0 10px; } footer strong { color:var(--text); }
+  footer .small { font-size:12px; margin-top:16px; }
+  @media (max-width:560px) { .top { padding-top:52px; } .cards { grid-template-columns:1fr; } :root { --mapw:672px; } .ver { grid-template-columns:48px 1fr; } .ver em { grid-column:2; } .hero .ghost2 { display:none; } .hero .ghost { left:calc(50% + 70px); } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="langsw" role="group" aria-label="Lingua / Language"><button data-l="it">IT</button><button data-l="en">EN</button></div>
+  <img class="spr sayo" src="home/sayo.png" alt="" width="63" height="66" loading="lazy">
+  <img class="spr ghost" src="home/ghost.png" alt="" width="63" height="48" loading="lazy">
+  <img class="spr ghost2" src="home/ghost.png" alt="" width="63" height="48" loading="lazy">
+  <div class="top">
+    <img class="logo" src="home/logo.png" alt="KiKi KaiKai" width="672" height="216">
+    <canvas class="px " data-t="A TRIBUTE" data-p="0" data-s="3" role="img" aria-label="A TRIBUTE"></canvas>
+    <a class="play" href="v3/" aria-label="Play / Gioca"><canvas lang="it" class="px " data-t="GIOCA" data-p="0" data-s="6" role="img" aria-label="GIOCA"></canvas><canvas lang="en" class="px " data-t="PLAY" data-p="0" data-s="6" role="img" aria-label="PLAY"></canvas><canvas lang="it" class="px blink" data-t="ULTIMA VERSIONE V3" data-p="2" data-s="2" role="img" aria-label="ULTIMA VERSIONE V3"></canvas><canvas lang="en" class="px blink" data-t="LATEST VERSION V3" data-p="2" data-s="2" role="img" aria-label="LATEST VERSION V3"></canvas></a>
+  </div>
+</header>
+<main>
+  <p class="support"><span lang="it">Un omaggio non ufficiale al classico arcade TAITO del 1986: fedele all'originale, con la sua grafica e una moderna.</span><span lang="en">An unofficial tribute to TAITO's 1986 arcade classic: faithful to the original, with its graphics and modern ones.</span></p>
+  <section><canvas lang="it" class="px " data-t="IL TRIBUTO" data-p="2" data-s="3" role="img" aria-label="IL TRIBUTO"></canvas><canvas lang="en" class="px " data-t="THE TRIBUTE" data-p="2" data-s="3" role="img" aria-label="THE TRIBUTE"></canvas><div class="cards"><div class="card"><img class="spr thumb" src="home/sayo.png" alt="" width="42" height="44" loading="lazy"><div><h3><span lang="it">Fedele all&#x27;arcade</span><span lang="en">Faithful to the arcade</span></h3><p><span lang="it">Movimento, tiro, nemici, collisioni e livelli sono ricostruiti leggendo il comportamento del gioco da sala fotogramma per fotogramma, non a memoria. Anche quale figura compare a ogni istante è quella dell&#x27;originale.</span><span lang="en">Movement, shots, enemies, collisions and stages are reconstructed by reading the coin-op&#x27;s behaviour frame by frame, not from memory. Even which picture shows at each instant is the original&#x27;s.</span></p></div></div><div class="card"><img class="spr thumb" src="home/ghost.png" alt="" width="42" height="32" loading="lazy"><div><h3><span lang="it">Due grafiche</span><span lang="en">Two graphics</span></h3><p><span lang="it">Il tasto G (o il pulsante GFX) passa a gioco in corso dalla grafica originale del 1986 a quella moderna, ridipinta con intelligenza artificiale generativa sopra le figure originali: stesse sagome, stesse posizioni.</span><span lang="en">Key G (or the GFX button) switches, while playing, between the original 1986 graphics and the modern ones, repainted with generative artificial intelligence over the original pictures: same silhouettes, same positions.</span></p></div></div><div class="card"><img class="spr thumb" src="home/ship.png" alt="" width="152" height="156" loading="lazy"><div><h3><span lang="it">Due colonne sonore</span><span lang="en">Two soundtracks</span></h3><p><span lang="it">Il tasto M (o il pulsante SND) passa dai suoni e dalla musica dell&#x27;arcade, catturati dal suo chip sonoro, a una versione moderna generata a partire da quelli.</span><span lang="en">Key M (or the SND button) switches between the arcade&#x27;s sounds and music, captured from its sound chip, and a modern version generated from them.</span></p></div></div><div class="card"><img class="spr thumb" src="home/sayo.png" alt="" width="42" height="44" loading="lazy"><div><h3><span lang="it">Si gioca nel browser</span><span lang="en">Plays in the browser</span></h3><p><span lang="it">La prima scena: frecce o WASD per muoversi, Z per l&#x27;ofuda, X per il bastone. Su telefono e tablet compaiono una leva e due pulsanti a schermo. Ci sono fantasmi, fiamme, il viandante e il bonus nascosto; mancano ancora punteggio a schermo e il boss. Le figure moderne dei nemici nuovi sono in prova.</span><span lang="en">The first scene: arrows or WASD to move, Z for the ofuda, X for the wand. On phones and tablets a stick and two buttons appear on screen. Ghosts, flames, the wanderer and the hidden bonus are in; on-screen score and the boss are still missing. The modern pictures of the new enemies are on trial.</span></p></div></div></div></section>
+  <section><canvas lang="it" class="px " data-t="VERSIONI" data-p="2" data-s="3" role="img" aria-label="VERSIONI"></canvas><canvas lang="en" class="px " data-t="VERSIONS" data-p="2" data-s="3" role="img" aria-label="VERSIONS"></canvas>
+    <details><summary><span lang="it">Tutte le versioni pubblicate (3) · ultima: v3 · Scena 1 come l&#x27;arcade per tre vite: fiamme, viandante, punto segreto con bonus</span><span lang="en">All published versions (3) · latest: v3 · Scena 1 come l&#x27;arcade per tre vite: fiamme, viandante, punto segreto con bonus</span></summary><div class="vers"><a class="ver latest" href="v3/"><b>v3</b><span>Scena 1 come l&#x27;arcade per tre vite: fiamme, viandante, punto segreto con bonus</span><em>05/10/2026 23:21</em></a><a class="ver" href="v2/"><b>v2</b><span>Come v1, più leva e pulsanti a schermo per telefono e tablet</span><em>05/10/2026 21:06</em></a><a class="ver" href="v1/"><b>v1</b><span>Scena 1 con grafica e audio originali del 1986 oppure moderni (tasti G e M)</span><em>05/10/2026 18:32</em></a></div></details>
+  </section>
+  <section><canvas lang="it" class="px " data-t="LINK" data-p="2" data-s="3" role="img" aria-label="LINK"></canvas><canvas lang="en" class="px " data-t="LINKS" data-p="2" data-s="3" role="img" aria-label="LINKS"></canvas>
+    <div class="links"><a href="https://it-mikesoft.github.io/gng/">Ghosts 'n Goblins — A Tribute →</a><a href="https://github.com/it-mikesoft/kiki/issues"><span lang="it">Segnalazioni su GitHub →</span><span lang="en">Reports on GitHub →</span></a></div>
+  </section>
+  <footer>
+    <canvas lang="it" class="px " data-t="TRASPARENZA E TUTELE" data-p="2" data-s="2" role="img" aria-label="TRASPARENZA E TUTELE"></canvas><canvas lang="en" class="px " data-t="TRANSPARENCY AND RIGHTS" data-p="2" data-s="2" role="img" aria-label="TRANSPARENCY AND RIGHTS"></canvas>
+    <p><span lang="it"><strong>Che cos'è.</strong> Un tributo amatoriale, non ufficiale e senza scopo di lucro a <em>KiKi KaiKai</em> (TAITO, 1986). Non è affiliato, approvato o sponsorizzato da TAITO né da SQUARE ENIX. Non vende nulla e non mostra pubblicità.</span><span lang="en"><strong>What it is.</strong> An amateur, unofficial, non-profit tribute to <em>KiKi KaiKai</em> (TAITO, 1986). It is not affiliated with, endorsed or sponsored by TAITO or SQUARE ENIX. It sells nothing and shows no ads.</span></p><p><span lang="it"><strong>Come nasce.</strong> Codice, grafica ridipinta e documentazione sono prodotti con sistemi di intelligenza artificiale (per il codice, le specifiche e la grafica), sotto la supervisione del curatore. Il comportamento del gioco è ricostruito per riprodurre fedelmente l'arcade e verificato con test automatici, ma possono restare differenze ed errori.</span><span lang="en"><strong>How it is made.</strong> Code, repainted graphics and documentation are produced with artificial intelligence systems (for code, specifications and graphics), under the curator's supervision. The game's behaviour is reconstructed to reproduce the arcade faithfully and checked with automated tests, but differences and errors may remain.</span></p><p><span lang="it"><strong>Marchi e diritti di TAITO.</strong> <em>KiKi KaiKai</em>, i suoi personaggi, i nomi e il logo sono marchi e opere di TAITO CORPORATION (© TAITO CORPORATION 1986), citati a scopo descrittivo e di omaggio. Le immagini di questa pagina (logo, personaggi, sfondo, caratteri) e la grafica e l'audio "1986" dentro il gioco sono materiale originale, opera di TAITO, mostrato a scopo di omaggio.</span><span lang="en"><strong>TAITO trademarks and rights.</strong> <em>KiKi KaiKai</em>, its characters, names and logo are trademarks and works of TAITO CORPORATION (© TAITO CORPORATION 1986), mentioned for descriptive and tribute purposes. The pictures on this page (logo, characters, background, lettering) and the "1986" graphics and audio inside the game are original material, TAITO's work, shown as a tribute.</span></p><p><span lang="it"><strong>Nessun diritto rivendicato.</strong> Il curatore non rivendica alcun diritto d'autore su questo tributo.</span><span lang="en"><strong>No rights claimed.</strong> The curator claims no copyright on this tribute.</span></p><p><span lang="it"><strong>Dati.</strong> Il sito non usa cookie né sistemi di tracciamento. Le opzioni del gioco restano salvate solo nel tuo browser.</span><span lang="en"><strong>Data.</strong> The site uses no cookies and no tracking. Game options are saved only in your browser.</span></p><p><span lang="it"><strong>Richieste di rimozione.</strong> Se sei il titolare dei diritti e desideri la rimozione del tributo o di una sua parte, apri una segnalazione su <a href="https://github.com/it-mikesoft/kiki/issues">GitHub</a>: il materiale viene rimosso.</span><span lang="en"><strong>Takedown requests.</strong> If you are the rights holder and want this tribute or part of it removed, open an issue on <a href="https://github.com/it-mikesoft/kiki/issues">GitHub</a>: the material will be removed.</span></p>
+    <p class="small"><span lang="it">Date in ora italiana. Aggiornato 05/10/2026 23:22.</span><span lang="en">Dates in Italian time. Updated 05/10/2026 23:22.</span></p>
+  </footer>
+</main>
+<script>
+(() => {
+  let lang = null;
+  try { lang = localStorage.getItem("kk_lang"); } catch (_) {}
+  if (lang !== "it" && lang !== "en") lang = (navigator.language || "en").toLowerCase().startsWith("it") ? "it" : "en";
+  const apply = l => { document.documentElement.dataset.lang = l; document.documentElement.lang = l;
+    document.querySelectorAll(".langsw button").forEach(b => b.classList.toggle("on", b.dataset.l === l)); };
+  apply(lang);
+  document.querySelectorAll(".langsw button").forEach(b => b.onclick = () => { apply(b.dataset.l);
+    try { localStorage.setItem("kk_lang", b.dataset.l); } catch (_) {} });
+})();
+(() => {
+  // the game's own 8x8 font: tile code = ASCII code, three palettes stacked in home/font.png
+  const font = new Image();
+  font.onload = () => document.querySelectorAll("canvas.px").forEach(c => {
+    const t = c.dataset.t, pal = +c.dataset.p, s = +c.dataset.s;
+    c.width = t.length * 8 * s; c.height = 8 * s;
+    const g = c.getContext("2d"); g.imageSmoothingEnabled = false;
+    for (let i = 0; i < t.length; i++) {
+      const code = t.charCodeAt(i); if (code > 95) continue;
+      g.drawImage(font, (code % 16) * 8, (code >> 4) * 8 + pal * 64, 8, 8, i * 8 * s, 0, 8 * s, 8 * s);
+    }
+  });
+  font.src = "home/font.png";
+})();
+</script>
+</body>
+</html>
