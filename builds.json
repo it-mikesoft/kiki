@@ -1,0 +1,34 @@
+{
+  "versions": {
+    "v3": {
+      "label": "fiamme-viandante-bonus",
+      "version": "0.0.1",
+      "revision": "4b8ccf0",
+      "built_at": "2026-10-05T21:21:49Z",
+      "summary": "Scena 1 come l'arcade per tre vite: fiamme, viandante, punto segreto con bonus",
+      "pck_bytes": 23186320,
+      "pck_sha256": "8da2ec53ff5aed559ff05bc6d1b0667474265fe3962d99ffb2eeb1995b66c4b0"
+    },
+    "v4": {
+      "label": "scena1-sala-tiratori-anello",
+      "version": "0.0.1",
+      "revision": "7f0de10",
+      "built_at": "2026-10-11T16:45:42Z",
+      "summary": "Scena 1 fino al cancello: vasi, lanterne, tiratori, porte e blocchi disegnati; suoni nuovi; grafica moderna di sprite e celle in prova",
+      "pck_bytes": 31614960,
+      "pck_sha256": "9c709bbad63169634a8c3c2b51eed8d6c7166dccbbff4fa56898e29985ccf30e"
+    },
+    "v5": {
+      "label": "livello1-completo-scena2-iniziata",
+      "version": "0.0.1",
+      "revision": "50ca13e",
+      "built_at": "2026-10-11T20:21:38Z",
+      "summary": "Livello 1 completo fino alla chiusura; il livello 2 \u00e8 restaurato solo in parte: annega nei fiumi, mancano i nemici che saltano e il boss, e al cancello il gioco resta in una stanza vuota (ricarica la pagina). Grafica moderna di sprite, celle e sfondi in prova.",
+      "pck_bytes": 54682512,
+      "pck_sha256": "f44a8186d6fdc92a192c815106913b13a9f6b82abc37b1b556cb9efe3c4b16e6"
+    }
+  },
+  "last_slot": 5,
+  "generated_at": "2026-10-11T20:21:38Z",
+  "latest": "v5"
+}
